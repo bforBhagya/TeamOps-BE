@@ -1,4 +1,4 @@
-package com.bforbhagya.ems.Repository;
+package com.bforbhagya.ems.repository;
 
 import com.bforbhagya.ems.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
