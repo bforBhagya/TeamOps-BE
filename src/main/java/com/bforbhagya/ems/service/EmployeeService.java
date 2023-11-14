@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmployeeService implements EmployeeServiceInterface {
@@ -28,7 +30,7 @@ public class EmployeeService implements EmployeeServiceInterface {
 
     @Override
     public ResponseEntity<Employee> getEmployeeById(Long id) {
-        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(("Employee Not Exist with id :" + id)));
+        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee Not Exist with id :" + id));
         return ResponseEntity.ok(employee);
     }
 
@@ -40,6 +42,15 @@ public class EmployeeService implements EmployeeServiceInterface {
         employee.setEmail(employeeDetails.getEmail());
         Employee updatedEmployee = employeeRepository.save(employee);
         return ResponseEntity.ok(updatedEmployee);
+    }
+
+    @Override
+    public ResponseEntity<Map<String,Boolean>> deleteEmployee(Long id) {
+       Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee Not Exist with id :" + id));
+       employeeRepository.delete(employee);
+       Map<String,Boolean> response = new HashMap<>();
+       response.put("deleted", Boolean.TRUE);
+       return ResponseEntity.ok(response);
     }
 
 

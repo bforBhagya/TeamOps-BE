@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/")
@@ -38,5 +39,8 @@ public class EmployeeController {
     public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDetails employeeDetails) {
         return employeeServiceInterface.updateEmployee(id, employeeDetails);
     }
-
+@DeleteMapping("/employees/{id}")
+    public ResponseEntity<Map<String,Boolean>> deleteEmployee(@PathVariable Long id){
+        return employeeServiceInterface.deleteEmployee(id);
+}
 }
